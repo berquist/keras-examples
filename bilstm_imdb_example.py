@@ -22,11 +22,14 @@ y_test = np.array(y_test)
 
 np.load = np_load_old
 
-model = Sequential()
-model.add(Embedding(N_UNIQUE_WORDS, 128, input_length=MAXLEN))
-model.add(Bidirectional(LSTM(64)))
-model.add(Dropout(0.5))
-model.add(Dense(1, activation="sigmoid"))
+model = Sequential(
+    [
+        Embedding(N_UNIQUE_WORDS, 128, input_length=MAXLEN),
+        Bidirectional(LSTM(64)),
+        Dropout(0.5),
+        Dense(1, activation="sigmoid"),
+    ]
+)
 
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 
