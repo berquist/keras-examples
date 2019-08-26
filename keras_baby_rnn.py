@@ -33,6 +33,7 @@ def parse_stories(lines, only_supporting=False):
         nid = int(nid)
         if nid == 1:
             story = []
+        # TODO what is this for?
         if "\t" in line:
             q, a, supporting = line.split("\t")
             q = tokenize(q)
@@ -93,7 +94,7 @@ if __name__ == "__main__":
     EMBED_HIDDEN_SIZE = 50
     SENT_HIDDEN_SIZE = 100
     QUERY_HIDDEN_SIZE = 100
-    BATCH_SIZE = 32
+    BATCH_SIZE = 128
     EPOCHS = 20
     print(
         "RNN / Embed / Sent / Query = {}, {}, {}, {}".format(
@@ -196,6 +197,7 @@ if __name__ == "__main__":
     model2.compile(
         optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"]
     )
+    # model2.fit([x, xq], y, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_split=0.05)
 
     # replace LSTMs with BiLSTMs of half size, concatentating the Bi-LSTM output
     # [1.6985360298156738, 0.291]
@@ -215,6 +217,7 @@ if __name__ == "__main__":
     model3.compile(
         optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"]
     )
+    # model3.fit([x, xq], y, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_split=0.05)
 
     # same as above but much smaller LSTMs
     # [1.742978988647461, 0.25]
@@ -234,3 +237,4 @@ if __name__ == "__main__":
     model4.compile(
         optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"]
     )
+    # model4.fit([x, xq], y, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_split=0.05)

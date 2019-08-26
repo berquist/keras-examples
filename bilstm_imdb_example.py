@@ -57,7 +57,7 @@ if __name__ == "__main__":
     (x_train2, y_train2), (x_test2, y_test2) = imdb.load_data(num_words=None)
     x_train2, y_train2, x_test2, y_test2 = load_data(n_unique_words=None, maxlen=MAXLEN)
     N_UNIQUE_WORDS = max(np.max(np.max(x_train2)), np.max(np.max(x_test2)))
-    # This is probably too large for an embedding space once a model becomes large.
+    # This is probably too large.
 
     model2 = Sequential(
         [
@@ -75,5 +75,23 @@ if __name__ == "__main__":
     model2.fit(x_train2, y_train2, batch_size=BATCH_SIZE, epochs=4, validation_data=[x_test2, y_test2])
     print("Evaluate...")
     model2.evaluate(x_test2, y_test2, batch_size=BATCH_SIZE)
+
+    # Increase the size of the embedding space.
+    model3 = Sequential(
+        [
+            # (number of possible tokens, dimension of embedding space)
+            Embedding(N_UNIQUE_WORDS, 768, input_length=MAXLEN),
+            Bidirectional(LSTM(64)),
+            Dropout(0.5),
+            Dense(1, activation="sigmoid"),
+        ]
+    )
+
+    model3.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+
+    print("Train...")
+    model3.fit(x_train2, y_train2, batch_size=BATCH_SIZE, epochs=4, validation_data=[x_test2, y_test2])
+    print("Evaluate...")
+    model3.evaluate(x_test2, y_test2, batch_size=BATCH_SIZE)
 
     np.load = np_load_old
