@@ -72,7 +72,13 @@ if __name__ == "__main__":
     model2.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 
     print("Train...")
-    model2.fit(x_train2, y_train2, batch_size=BATCH_SIZE, epochs=4, validation_data=[x_test2, y_test2])
+    model2.fit(
+        x_train2,
+        y_train2,
+        batch_size=BATCH_SIZE,
+        epochs=4,
+        validation_data=[x_test2, y_test2],
+    )
     print("Evaluate...")
     model2.evaluate(x_test2, y_test2, batch_size=BATCH_SIZE)
 
@@ -90,7 +96,13 @@ if __name__ == "__main__":
     model3.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 
     print("Train...")
-    model3.fit(x_train2, y_train2, batch_size=BATCH_SIZE, epochs=4, validation_data=[x_test2, y_test2])
+    model3.fit(
+        x_train2,
+        y_train2,
+        batch_size=BATCH_SIZE,
+        epochs=4,
+        validation_data=[x_test2, y_test2],
+    )
     print("Evaluate...")
     model3.evaluate(x_test2, y_test2, batch_size=BATCH_SIZE)
 

@@ -184,11 +184,15 @@ if __name__ == "__main__":
 
     sentence2 = Input(shape=(story_maxlen,), dtype="int32")
     encoded_sentence2 = Embedding(vocab_size, EMBED_HIDDEN_SIZE)(sentence2)
-    encoded_sentence2 = Bidirectional(RNN(SENT_HIDDEN_SIZE // 2), merge_mode="sum")(encoded_sentence2)
+    encoded_sentence2 = Bidirectional(RNN(SENT_HIDDEN_SIZE // 2), merge_mode="sum")(
+        encoded_sentence2
+    )
 
     question2 = Input(shape=(query_maxlen,), dtype="int32")
     encoded_question2 = Embedding(vocab_size, EMBED_HIDDEN_SIZE)(question2)
-    encoded_question2 = Bidirectional(RNN(QUERY_HIDDEN_SIZE // 2), merge_mode="sum")(encoded_question2)
+    encoded_question2 = Bidirectional(RNN(QUERY_HIDDEN_SIZE // 2), merge_mode="sum")(
+        encoded_question2
+    )
 
     merged2 = concatenate([encoded_sentence2, encoded_question2])
     preds2 = Dense(vocab_size, activation="softmax")(merged2)
@@ -204,11 +208,15 @@ if __name__ == "__main__":
 
     sentence3 = Input(shape=(story_maxlen,), dtype="int32")
     encoded_sentence3 = Embedding(vocab_size, EMBED_HIDDEN_SIZE)(sentence3)
-    encoded_sentence3 = Bidirectional(RNN(SENT_HIDDEN_SIZE // 2), merge_mode="concat")(encoded_sentence3)
+    encoded_sentence3 = Bidirectional(RNN(SENT_HIDDEN_SIZE // 2), merge_mode="concat")(
+        encoded_sentence3
+    )
 
     question3 = Input(shape=(query_maxlen,), dtype="int32")
     encoded_question3 = Embedding(vocab_size, EMBED_HIDDEN_SIZE)(question3)
-    encoded_question3 = Bidirectional(RNN(QUERY_HIDDEN_SIZE // 2), merge_mode="concat")(encoded_question3)
+    encoded_question3 = Bidirectional(RNN(QUERY_HIDDEN_SIZE // 2), merge_mode="concat")(
+        encoded_question3
+    )
 
     merged3 = concatenate([encoded_sentence3, encoded_question3])
     preds3 = Dense(vocab_size, activation="softmax")(merged3)
@@ -224,11 +232,15 @@ if __name__ == "__main__":
 
     sentence4 = Input(shape=(story_maxlen,), dtype="int32")
     encoded_sentence4 = Embedding(vocab_size, EMBED_HIDDEN_SIZE)(sentence4)
-    encoded_sentence4 = Bidirectional(RNN(SENT_HIDDEN_SIZE // 5), merge_mode="concat")(encoded_sentence4)
+    encoded_sentence4 = Bidirectional(RNN(SENT_HIDDEN_SIZE // 5), merge_mode="concat")(
+        encoded_sentence4
+    )
 
     question4 = Input(shape=(query_maxlen,), dtype="int32")
     encoded_question4 = Embedding(vocab_size, EMBED_HIDDEN_SIZE)(question4)
-    encoded_question4 = Bidirectional(RNN(QUERY_HIDDEN_SIZE // 5), merge_mode="concat")(encoded_question4)
+    encoded_question4 = Bidirectional(RNN(QUERY_HIDDEN_SIZE // 5), merge_mode="concat")(
+        encoded_question4
+    )
 
     merged4 = concatenate([encoded_sentence4, encoded_question4])
     preds4 = Dense(vocab_size, activation="softmax")(merged4)
