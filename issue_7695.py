@@ -20,9 +20,15 @@ x = Masking(mask_value=-1.0)(inp)
 lstm = LSTM(4, return_sequences=True)(x)
 model_1 = Model(inputs=inp, outputs=lstm)
 model_1.summary()
+model_1.set_weights(
+    [np.ones(l.shape) * i for i, l in enumerate(model_1.get_weights(), 2)]
+)
 print(model_1.predict(X))
 
 bilstm = Bidirectional(LSTM(4, return_sequences=True), merge_mode="concat")(x)
 model_2 = Model(inputs=inp, outputs=bilstm)
 model_2.summary()
+model_2.set_weights(
+    [np.ones(l.shape) * i for i, l in enumerate(model_2.get_weights(), 2)]
+)
 print(model_2.predict(X))
