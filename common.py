@@ -11,6 +11,12 @@ def set_model_weights_to_unity(model: keras.Model) -> None:
     model.set_weights([np.ones(shape) for shape in shapes])
 
 
+def set_model_weights_to_depth(model: keras.Model) -> None:
+    model.set_weights(
+        [np.ones(l.shape) * i for i, l in enumerate(model.get_weights(), 2)]
+    )
+
+
 def get_gradient(model: keras.Model):
     """Taken from https://github.com/keras-team/keras/issues/2226#issuecomment-381807035"""
     weights = model.trainable_weights
@@ -19,6 +25,10 @@ def get_gradient(model: keras.Model):
         model.inputs + model.sample_weights + model.targets + [K.learning_phase()]
     )
     return K.function(inputs=input_tensors, outputs=gradients)
+
+
+def binary_crossentropy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    pass
 
 
 def mae(
