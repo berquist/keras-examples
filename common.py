@@ -13,10 +13,8 @@ def set_model_weights_to_unity(model: keras.Model) -> None:
 
 def get_gradient(model: keras.Model):
     """Taken from https://github.com/keras-team/keras/issues/2226#issuecomment-381807035"""
-    weights = model.trainable_weights  # weight tensors
-    gradients = model.optimizer.get_gradients(
-        model.total_loss, weights
-    )  # gradient tensors
+    weights = model.trainable_weights
+    gradients = model.optimizer.get_gradients(model.total_loss, weights)
     input_tensors = (
         model.inputs + model.sample_weights + model.targets + [K.learning_phase()]
     )
