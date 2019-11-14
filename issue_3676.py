@@ -48,3 +48,4 @@ if __name__ == "__main__":
     print(y)
     print(y_one_hot)
     print(model.predict(x))
+    model.save("issue_3676.model")
